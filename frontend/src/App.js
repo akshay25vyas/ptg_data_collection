@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import Select from 'react-select';
 import "./App.css"
 const recipe_name = ["Saab", "Volvo", "BMW"];
@@ -15,10 +16,32 @@ function CustomDropdown(props) {
     );
 }
 
+
 const App = () => {
+    //useState
+    const getData = async() => {
+        console.log("here")
+        const getData = await fetch('http://localhost:8000/insert')
+        const showData = await getData.json()
+        console.log(showData)
+    
+    }
+    
+    
+    const generateDiv = () => {
+        //replace this with onclick upload button - use useState for setting up response
+        const res = ['S1','S2','S3','S4', 'S5']
+        return res.map((elem, index) => {
+            return  <div key={index}>
+            <h4>{elem}</h4>
+        </div>
+        })
+    }
+
+    
     return (
         <div className='flx'>
-            <div className='w20'>
+            <div>
             <div>
                 <h4>Recipe name</h4>
                 <CustomDropdown/>
@@ -38,39 +61,30 @@ const App = () => {
             </div>
             <div>
                 <div className='tc'>
-                <button class="button button1">Green</button>
+                <button onClick = {()=>{
+                    getData()
+                }} className="button button1">Info</button>
                 </div>
                 <div className = "flxBtn">
                 <div>
-                <button class="button button1">Green</button>
+                <button className="button button1">Green</button>
                 </div>
                 <div>
-                <button class="button button1">Green</button>
+                <button className="button button1">Green</button>
                 </div>
                 <div>
-                <button class="button button1">Green</button>
+                <button className="button button1">Green</button>
                 </div>
                 </div>
                 <div className='tc'>
-                <button class="button button1">Green</button>
+                <button className="button button1">Green</button>
                 </div>
                 <div className='rossDiv'>
 
                 </div>
             </div>
             <div>
-            <div>
-                <h4>S1</h4>
-            </div>
-            <div>
-                <h4>S2</h4>
-            </div>
-            <div>
-                <h4>S3</h4>
-            </div>
-            <div>
-                <h4>S4</h4>
-            </div>
+                {generateDiv()}
             </div>
         </div>
     );
